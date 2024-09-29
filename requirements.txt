@@ -61,3 +61,19 @@ Notas:
 
 Diseño de clases: Haz una propuesta de solución antes de empezar a programar, y documentarlo debajo de /doc, en el formato que desees.
 
+
+Propuesta de solucion
+
+UI: 
+  Para la ui lo primero que vamos a hacer es mantener los datos en un estado global con zustan para mantener separada la logica de componentes y la funcionalidad de 
+  conectividad con el backend tendremos un store con el estado de cada uno de los pagos que se quieren realizar.
+  tendremos por un lado todo un apartado que se encargara de la conexion con el socket en el momento que se entre en cada una de las paginas y que cerrara la conexion 
+  cuando todas las cartas esten en verde, 
+  para las paginas vamos a hacer para la principal un componente que sea el elemento pago. y para las paginas #show tendremos un componente para la targeta la cual 
+  personalizaremos por params.
+  
+Backend:
+  para el backend vamos a tomar la opcion de los sockets y para ello cuando alguien se conecte a el canal de payments empezara a recibir cada actualizacion 
+  de el status que mandara
+
+
