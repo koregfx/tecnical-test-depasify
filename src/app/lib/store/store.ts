@@ -1,10 +1,10 @@
-import { randomUUID } from 'crypto';
 import { create } from 'zustand'
+
 interface State {
-  payments: Payment[];
+  payments: { [key: string]: Payment };
   updatePaymentStatus: (paymentId: string, newStatus: PaymentStatus) => void
 }
-interface Payment {
+export interface Payment {
   id: string,
   name: string,
   balances: {
@@ -14,18 +14,17 @@ interface Payment {
   date: number,
   status: PaymentStatus
 }
-interface PaymentStatus {
-
+export interface PaymentStatus {
   card_1: validStatus,
   card_2: validStatus,
   card_3: validStatus,
   card_4: validStatus,
 }
-type validStatus = "blue" | "yellow" | "green"
+export type validStatus = "blue" | "yellow" | "green"
 export const useStore = create<State>((set) => ({
-  payments: [
-    {
-      id: randomUUID(),
+  payments: {
+    "df88e4f1-4301-44f7-a449-7f2a2b4ce3ad": {
+      id: "df88e4f1-4301-44f7-a449-7f2a2b4ce3ad",
       name: "Payment 1",
       balances: {
         EUR: 20,
@@ -39,9 +38,8 @@ export const useStore = create<State>((set) => ({
         card_4: "blue",
       }
     },
-
-    {
-      id: randomUUID(),
+    "87afdaf0-41e3-4da7-9ae1-b98c3193ec91": {
+      id: "87afdaf0-41e3-4da7-9ae1-b98c3193ec91",
       name: "Payment 2",
       balances: {
         EUR: 40,
@@ -55,9 +53,8 @@ export const useStore = create<State>((set) => ({
         card_4: "blue",
       }
     },
-
-    {
-      id: randomUUID(),
+    "d2bf8a51-d241-4531-877b-20cac0a57a31": {
+      id: "d2bf8a51-d241-4531-877b-20cac0a57a31",
       name: "Payment 3",
       balances: {
         EUR: 60,
@@ -72,14 +69,16 @@ export const useStore = create<State>((set) => ({
       }
     },
 
-  ],
+  },
   updatePaymentStatus: (paymentId, newStatus) => {
-    set((state) => {
-      const updatedPayment = state.payments.filter(e => e.id === paymentId)[0]
-      updatedPayment.status = newStatus
-
-      state.payments = [...state.payments.filter(e => e.id !== paymentId), updatedPayment]
-      return state
-    })
+    set((state) => ({
+      payments: {
+        ...state.payments,
+        [paymentId]: {
+          ...state.payments[paymentId],
+          status: newStatus,
+        },
+      },
+    }))
   }
 }))
