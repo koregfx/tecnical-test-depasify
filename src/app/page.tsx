@@ -19,7 +19,6 @@ export default function Home() {
         ))}
       </div>
 
-      <button>Reset Socket</button>
     </div>
   );
 }
