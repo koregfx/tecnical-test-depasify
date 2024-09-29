@@ -1,0 +1,63 @@
+Prueba técnica
+
+Una de las ideas que tenemos en Depasify es poder mover dinero entre Madrid y Bogotá en cuestión de minutos. 
+
+Para ello tenemos que recibir los Euros en Madrid, cambiarlo a USDT, mandarlo a Colombia y entregarlo en pesos en Bogotá. 
+
+Queremos enseñarle el proceso al cliente, para que pueda ver en todo momento en donde está la pasta. 
+
+Por eso, vamos a construir un simple frontend que vaya actualizándose según el dinero vaya avanzando de estado.
+
+
+
+
+Setup
+
+Crear un repo en github y empezar una app con Nextjs.
+
+
+UI
+Crear una página #index, que tenga una tabla con todos los pagos. Cada elemento, tendrá un botón para ir al #show. 
+Es decir, se abre el home que carga una tabla con la lista de pagos, y se puede abrir cada pago en concreto. Los datos del index pueden estar completamente hardcodeados.
+
+
+
+La página #show del pago tendrá 4 cards, cada una con un punto que va a ir actualizando su color(ver foto abajo). Por defecto serán azules, cuando el proceso esté en progreso será amarillo y cuando finalice será verde.
+
+
+
+Validar que solo puede haber un amarillo(en progreso) en cada momento, y que el proceso no puede ir hacia atrás. En caso de que se incumplan esas dos normas rechazar la lectura.
+
+Se valorará como se han pensado la estructura de componentes, cual es el traspaso de información, la reusabilidad, etc.
+
+Backend, Conectividad y funcionamiento
+
+Hay que montar un pequeño backend que vaya avanzando los estados del frontend. Se dan varias opciones:
+
+Opción A: 
+Polling APIs desde el frontend. Hacer una función que cada 3 segundos pregunte a una API y refresque el avance.
+
+Opción B: Sockets. Conectarse por socket y que cuando llegue un evento actualice el front. 
+https://socket.io/
+
+
+Opción C: Crear un API endpoint en la propia app y con un segundo cliente(postman, curl o similar)  posteamos el nuevo estado.
+
+Estructura de datos:
+
+{
+   "card_1": "green",
+   "card_2": "yellow",
+   "card_3": "blue",
+   "card_4": "blue"
+}
+
+El backend emisor de eventos lo puedes hacer en la tecnología que quieras.
+
+Monta un par de casos de prueba en el que se verifique tanto el happy path, como que las validaciones y control de errores implementados en el anterior punto funcionan como deben.
+
+
+Notas:
+
+Diseño de clases: Haz una propuesta de solución antes de empezar a programar, y documentarlo debajo de /doc, en el formato que desees.
+
